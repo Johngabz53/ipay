@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Frontend</title>
+</head>
+
+<body>
+    <div id="content">Original Content</div>
+    <input type="text" id="newContentInput" placeholder="Enter new content">
+    <button onclick="updateContent()">Update Content</button>
+
+    <script>
+        function updateContent() {
+            const newContent = document.getElementById('newContentInput').value;
+            function updateContent() {
+                const newContent = document.getElementById('newContentInput').value;
+                fetch('./updateContent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ newData: newContent })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('content').innerText = newContent;
+                        } else {
+                            console.error('Failed to update content');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
+</body>
+
+</html>
