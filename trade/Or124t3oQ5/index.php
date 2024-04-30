@@ -939,7 +939,7 @@
                                     </svg>
                                     <div class="d-flex flex-column flex-xs-row">IMPORTANT! Please check that you are
                                         visiting https://accounts.ipaycash.org/<img
-                                            src="static/dist/assets/images/https-label-91194ad43fc85d71e34a467282e95f23.png"
+                                            src="auth0/static/dist/assets/images/https-label-91194ad43fc85d71e34a467282e95f23.png"
                                             class="mt-2 ml-xs-3 align-self-start LoginTemplate__labelIcon" alt="url">
                                     </div>
                                 </div>
