@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Database connection (adjust to your database configuration)
     $servername = "localhost"; // change this to your server name
     $username = "root"; // change this to your username
-    $password = ""; // change this to your password
+    $password = "Ipay653*"; // change this to your password
     $dbname = "ipayDB"; // change this to your database name
 
     // Connect to the database
