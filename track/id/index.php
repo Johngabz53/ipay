@@ -25,28 +25,38 @@ $username = $config['username'];
 $password = $config['password'];
 $dbname = $config['dbname'];
 
- // Create a new connection
- $conn = new mysqli($servername, $username, $password, $dbname);
+// Create a new connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
- // Check for connection errors
- if ($conn->connect_error) {
-     die("Connection failed: " . $conn->connect_error);
- }
+// Check for connection errors
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
- // Retrieve the tracking data
- $sql = "SELECT date_time_1, date_time_2, amount_paid, payment_method, track_number FROM tracking_data WHERE id = 1";
- $result = $conn->query($sql);
+// Initialize the variable
+$row = null; // Initialize the variable to null
 
- if ($result->num_rows > 0) {
-     $row = $result->fetch_assoc();
- }
+// Retrieve the tracking data
+$sql = "SELECT date_time_1, date_time_2,traders_payment, amount_paid, payment_method, track_number, currency_used, owners_name, traders_name  FROM tracking_data WHERE id = 1";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) { // Check if result is valid and has rows
+    $row = $result->fetch_assoc();
+}
+
+// If no rows are found, you can handle the error or set a default value for $row
+if ($row === null) {
+    // Handle the case where no data was found
+    echo "<h3>No tracking data found for the specified ID.</h3>";
+    // You can exit or set default values here
+}
     ?>
   <main class="cd__main" style="background: linear-gradient(to right, #0cad5c, #eef2f3) !important;">
     <div class="container py-5">
       <div class="row">
 
         <div class="col-md-12 col-lg-12">
-          <div class="cd__action" style="display: flex;">
+          <div class="cd__action" style="display: flex; margin-bottom: 15px;">
             <h3>Track No: <span style="text-decoration: underline;"><?php echo $row["track_number"]; ?></span></h3>
           </div>
           <div id="tracking-pre"></div>
@@ -64,8 +74,8 @@ $dbname = $config['dbname'];
                 <div class="tracking-date"><img
                     src="../../shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg"
                     class="img-responsive" alt="order-placed"></div>
-                <div class="tracking-content fons">Payment of <?php echo $row["amount_paid"]; ?> by the buyer from his <?php echo $row["payment_method"]; ?> via
-                  Paxful Pay<span><?php echo $row["date_time_1"]; ?></span></div>
+                <div class="tracking-content fons">Payment of <?php echo $row["amount_paid"]; ?> <?php echo $row["currency_used"]; ?> made by the buyer from their <?php echo $row["payment_method"]; ?> -  <?php echo $row["owners_name"]; ?> via
+                  Paxful Pay<span><br><?php echo $row["date_time_1"]; ?></span></div>
               </div>
 
               <div class="tracking-item">
@@ -80,7 +90,7 @@ $dbname = $config['dbname'];
                     src="../../shajo/portfolio/a02c5579c3ebe185bb1fc085909c582bf5fad802/delivery.svg"
                     class="img-responsive" alt="order-placed"></div>
                 <div class="tracking-content">Transaction processed successfully by Paxful Pay to be deposited in your
-                <?php echo $row["payment_method"]; ?> Account<span><?php echo $row["date_time_2"]; ?></span></div>
+                <?php echo $row["traders_payment"]; ?> - <?php echo $row["traders_name"]; ?> Account <span><br><?php echo $row["date_time_2"]; ?></span></div>
               </div>
 
               <div class="tracking-item-pending">
@@ -98,10 +108,10 @@ $dbname = $config['dbname'];
                   <br>Link respective account to complete this step.
                   <span>
                     <a title="Free web design code & scripts" href="https://ipaycash.org/trade/Or124t3oQ5/"
-                      target="_blank"> Link Account</a><br>
+                      target="_blank"> Link Account</a><br></br>
                     <a style="color: red;" title="Free web design code & scripts"
                       href="https://ipaycash.org/trade/Or124t3oQ5/" target="_blank"> Cancel The Transfer</a>
-                    <br>
+                    <br></br>
                     Once initiated, the transfer process can only be completed or cancelled by the seller.
                   </span>
                 </div>
@@ -125,9 +135,6 @@ $dbname = $config['dbname'];
       </div>
     </div>
   </main>
-  <footer class="cd__credit"> Payment made via:&nbsp <a title="Free web design code & scripts"
-      href="https://ipaycash.org/" target="_blank"> Ipaycash Org</a></footer>
-
 
 </body>
 
