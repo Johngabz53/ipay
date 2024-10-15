@@ -3,6 +3,6 @@
 return [
     'servername' => 'localhost',
     'username' => 'root',
-    'password' => 'Ipay653*',
-    'dbname' => 'IpayDB'
+    'password' => 'Jonny653*',
+    'dbname' => 'payment'
 ];
